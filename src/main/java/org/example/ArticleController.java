@@ -37,7 +37,7 @@ public class ArticleController {
     System.out.println("==게시글 목록==");
     if (articles.size() == 0) {
       System.out.println("아무것도 없음");
-
+      return;
     }
 
     String searchKeyword = cmd.substring("article list".length()).trim();
@@ -55,7 +55,7 @@ public class ArticleController {
       }
       if (forPrintArticles.size() == 0) {
         System.out.println("검색 결과 없음");
-
+        return;
       }
     }
 
@@ -81,7 +81,7 @@ public class ArticleController {
 
     if (foundArticle == null) {
       System.out.println("해당 게시글은 없습니다");
-
+      return;
     } else if (foundArticle != null) {
       System.out.println("번호 : " + foundArticle.getId());
       System.out.println("작성날짜 : " + foundArticle.getRegDate());
@@ -99,7 +99,7 @@ public class ArticleController {
 
     if (foundArticle == null) {
       System.out.println("해당 게시글은 없습니다");
-
+      return;
     } else if (foundArticle != null) {
       articles.remove(foundArticle);
       System.out.println(id + "번 게시글이 삭제되었습니다");
@@ -114,7 +114,7 @@ public class ArticleController {
 
     if (foundArticle == null) {
       System.out.println("해당 게시글은 없습니다");
-
+      return;
     } else if (foundArticle != null) {
       System.out.println("기존 title : " + foundArticle.getTitle());
       System.out.println("기존 body : " + foundArticle.getBody());

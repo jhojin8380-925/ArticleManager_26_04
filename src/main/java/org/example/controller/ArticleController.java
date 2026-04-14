@@ -89,13 +89,13 @@ public class ArticleController extends Controller {
       }
     }
 
-    System.out.println("   번호  /       날짜       /       제목     /   내용  ");
+    System.out.println(" 번호 / 날짜 / 제목 / 내용");
     for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
       Article article = forPrintArticles.get(i);
       if (Util.getNowStr().split(" ")[0].equals(article.getRegDate().split(" ")[0])) {
-        System.out.printf("   %d     /    %s          /    %s     /     %s   \n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
+        System.out.printf(" %d / %s / %s / %s\n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
       } else {
-        System.out.printf("   %d     /    %s          /    %s     /     %s   \n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
+        System.out.printf(" %d / %s / %s / %s\n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
       }
 
     }

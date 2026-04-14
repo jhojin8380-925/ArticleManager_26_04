@@ -13,6 +13,7 @@ public class MemberController extends Controller {
   private List<Member> members;
   private String cmd;
   private int lastMemberId = 3;
+  private Member loginedMember = null;
 
   public MemberController(Scanner sc) {
     this.sc = sc;
@@ -25,6 +26,12 @@ public class MemberController extends Controller {
     switch (actionMethodName) {
       case "join":
         doJoin();
+        break;
+      case "login":
+        dologin();
+        break;
+      case "logout":
+        dologout();
         break;
       default:
         System.out.println("Invalid action method");
@@ -62,12 +69,57 @@ public class MemberController extends Controller {
     String regDate = Util.getNowStr();
     String updateDate = Util.getNowStr();
 
-    Member member = new Member(id, regDate, updateDate, loginId, password, name);
-    members.add(member);
+
 
     System.out.println(id + "번 회원이 가입 되었습니다.");
     lastMemberId++;
   }
+
+  private boolean isLogined() {
+    return loginedMember != null;
+  }
+
+  private void dologin() {
+
+      if (isLogined()) {
+        System.out.println("이미 로그인 중 입니다.");
+        return;
+      }
+      System.out.println("== 로그인 시스템 ==");
+      System.out.print("아이디를 입력해주세요 : ");
+      String Lid = sc.nextLine().trim();
+      System.out.print("비밀번호를 입력해주세요 : ");
+      String Lpw = sc.nextLine().trim();
+
+      Member member = getMemberByLoginId(Lid);
+
+      if (member == null) {
+        System.out.println("회원정보가 존재하지 않습니다.");
+        return;
+      }
+
+      if (member.getLoginPw().equals(Lpw) == false) {
+        System.out.println("비밀번호가 틀렸습니다.");
+        return;
+      }
+      loginedMember = member;
+
+      System.out.println(loginedMember.getName() + "님 환영합니다.");
+
+
+  }
+
+  private void dologout() {
+    if (!isLogined()) {
+      System.out.println("로그아웃 상태입니다. 로그인 해주세요.");
+      return;
+    }
+
+    loginedMember = null;
+    System.out.println("로그아웃 완료.");
+  }
+
+
 
   private boolean isJoinableLoginId(String loginId) {
     for (Member member : members) {
@@ -78,13 +130,22 @@ public class MemberController extends Controller {
     return true;
   }
 
+  private Member getMemberByLoginId(String loginId) {
+    for (Member member : members) {
+      if (member.getLoginId().equals(loginId)) {
+        return member;
+      }
+    }
+    return null;
+  }
+
 
 // 회원 테스트 데이터 생성
 
   public void makeTestData() {
     System.out.println("==회원 테스트 데이터 생성==");
-    members.add(new Member(1, Util.getNowStr(), Util.getNowStr(), "test1", "test1", "회원1"));
-    members.add(new Member(2, Util.getNowStr(), Util.getNowStr(), "test2", "test2", "회원2"));
-    members.add(new Member(3, Util.getNowStr(), Util.getNowStr(), "test3", "test3", "회원3"));
+    members.add(new Member(1, Util.getNowStr(), Util.getNowStr(), "t1", "t1", "테스트 회원1"));
+    members.add(new Member(2, Util.getNowStr(), Util.getNowStr(), "t2", "t2", "테스트 회원2"));
+    members.add(new Member(3, Util.getNowStr(), Util.getNowStr(), "t3", "t3", "테스트 회원3"));
   }
 }

@@ -1,4 +1,8 @@
-package org.example;
+package org.example.ArticleManager;
+
+import org.example.controller.ArticleController;
+import org.example.controller.Controller;
+import org.example.controller.MemberController;
 
 import java.util.Scanner;
 

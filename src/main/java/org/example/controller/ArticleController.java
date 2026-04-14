@@ -7,21 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArticleController extends Controller {
+public class ArticleController extends Controller { //Controller 를 상속함
   private Scanner sc;
   private List<Article> articles;
   private String cmd;
   private int lastArticleId = 3;
-
-  public ArticleController(Scanner sc) {
+  //변수 선언
+  public ArticleController(Scanner sc) { //생성자 만듬
     this.sc = sc;
     articles = new ArrayList<>();
   }
 
-  public void doAction(String cmd, String actionMethodName) {
+  public void doAction(String cmd, String actionMethodName) { //doAtction을 상속받고 그안에 값을 입력함
     this.cmd = cmd;
 
-    switch (actionMethodName) {
+    switch (actionMethodName) { //switch 에 대해 자세한 정리 필요 -> 차후 노션에 정리할 것
+      //actionMethodName 이라는 변수를 이용하여 공백기준 두번째에 오는 단어를 보고 어떤걸 실행할지 정함 -> App 가보면 나옴 40번째줄
       case "write":
         doWrite();
         break;
@@ -38,14 +39,14 @@ public class ArticleController extends Controller {
         doModify();
         break;
       default:
-        System.out.println("Invalid action method");
+        System.out.println("Invalid action method"); //기본값으로 다른 단어가 적혀있을 때 출력
         break;
     }
   }
 
   // 게시글 작성 함수 구현
   private void doWrite() {
-    System.out.println("==게시글 작성==");
+    System.out.println("==게시글 작성==");  //게시글 작성
     int id = lastArticleId + 1;
 
     System.out.print("제목 : ");

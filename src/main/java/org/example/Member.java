@@ -1,6 +1,6 @@
 package org.example;
 
-public class Member {   //
+public class Member {
   private int id;
   private String regDate;
   private String updateDate;

@@ -12,21 +12,21 @@ public class App {
 
     System.out.println("==프로그램 시작==");
 
-    MemberController memberController = new MemberController(sc); //memberController 객체를 새로만들고 sc의 값을 넘겨줌 (스캐너넘겨주기)
-    ArticleController articleController = new ArticleController(sc); //위와동일
+    MemberController memberController = new MemberController(sc);
+    ArticleController articleController = new ArticleController(sc);
 
-    articleController.makeTestData();  //테스트 테이터를 가져옴
-    memberController.makeTestData(); //테스트 데이터를 가져옴
+    articleController.makeTestData();
+    memberController.makeTestData();
 
-    Controller controller = null;  //controller 변수에 null값을 넣음
+    Controller controller = null;
 
     while (true) {
-      System.out.print("명령어 ) "); //무한반복문을 이용하여 사용자에게 입력값을 받음
+      System.out.print("명령어 ) ");
       String cmd = sc.nextLine().trim();
 
-      if (cmd.equals("exit")) { //exit 입력시 프로그램 종료
+      if (cmd.equals("exit")) {
         break;
-      } else if (cmd.length() == 0) {  //입력한 값이 없을 때 출력
+      } else if (cmd.length() == 0) {
         System.out.println("명령어 입력하세요");
         continue;
       }
@@ -61,7 +61,6 @@ public class App {
           }
           break;
       }
-
 
       if (controllerName.equals("article")) {
         controller = articleController;

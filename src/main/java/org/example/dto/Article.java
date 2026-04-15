@@ -1,20 +1,22 @@
 package org.example.dto;
 
-public class Article extends Dto { //게시판 클래스를 만들고 Dto에 상속화
-  private String title;  //제목 담을 변수 생성
-  private String body;  //내용 담을 변수 생성
-  private String member;
+public class Article extends Dto {
+  private String title;
+  private String body;
 
-  public Article(int id, String regDate, String updateDate, String title, String body) {
-    this.id = id;  //생성자를 만들어 변수들에 값을 적용
+  private int memberId;
+
+  public Article(int id, String regDate, String updateDate, String title, String body, int memberId) {
+    this.id = id;
     this.regDate = regDate;
     this.updateDate = updateDate;
     this.title = title;
     this.body = body;
+    this.memberId = memberId;
   }
 
 
-  public int getId() {  //게시판 번호를 출력하기위해 게터사용
+  public int getId() {
     return id;
   }
 
@@ -54,4 +56,11 @@ public class Article extends Dto { //게시판 클래스를 만들고 Dto에 상
     this.body = body;
   }
 
+  public int getMemberId() {
+    return memberId;
+  }
+
+  public void setMemberId(int memberId) {
+    this.memberId = memberId;
+  }
 }

@@ -7,22 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ArticleController extends Controller { //Controller 를 상속함
+public class ArticleController extends Controller {
   private Scanner sc;
   private List<Article> articles;
   private String cmd;
   private int lastArticleId = 3;
-  //변수 선언
-  public ArticleController(Scanner sc) { //생성자 만듬
+
+  public ArticleController(Scanner sc) {
     this.sc = sc;
     articles = new ArrayList<>();
   }
 
-  public void doAction(String cmd, String actionMethodName) { //doAtction을 상속받고 그안에 값을 입력함
+  public void doAction(String cmd, String actionMethodName) {
     this.cmd = cmd;
 
-    switch (actionMethodName) { //switch 에 대해 자세한 정리 필요 -> 차후 노션에 정리할 것
-      //actionMethodName 이라는 변수를 이용하여 공백기준 두번째에 오는 단어를 보고 어떤걸 실행할지 정함 -> App 가보면 나옴 40번째줄
+    switch (actionMethodName) {
       case "write":
         doWrite();
         break;
@@ -39,14 +38,14 @@ public class ArticleController extends Controller { //Controller 를 상속함
         doModify();
         break;
       default:
-        System.out.println("Invalid action method"); //기본값으로 다른 단어가 적혀있을 때 출력
+        System.out.println("Invalid action method");
         break;
     }
   }
 
   // 게시글 작성 함수 구현
   private void doWrite() {
-    System.out.println("==게시글 작성==");  //게시글 작성
+    System.out.println("==게시글 작성==");
     int id = lastArticleId + 1;
 
     System.out.print("제목 : ");
@@ -56,7 +55,7 @@ public class ArticleController extends Controller { //Controller 를 상속함
     String regDate = Util.getNowStr();
     String updateDate = Util.getNowStr();
 
-    Article article = new Article(id, regDate, updateDate, title, body);
+    Article article = new Article(id, regDate, updateDate, title, body, loginedMember.getId());
     articles.add(article);
 
     System.out.println(id + "번 글이 작성되었습니다.");
@@ -90,22 +89,15 @@ public class ArticleController extends Controller { //Controller 를 상속함
       }
     }
 
-    System.out.println(" 번호 / 날짜 / 제목 / 내용");
+    System.out.println("   번호  /       날짜       /       제목     /   내용  ");
     for (int i = forPrintArticles.size() - 1; i >= 0; i--) {
       Article article = forPrintArticles.get(i);
       if (Util.getNowStr().split(" ")[0].equals(article.getRegDate().split(" ")[0])) {
-        System.out.printf(" %d / %s / %s / %s\n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
+        System.out.printf("   %d     /    %s          /    %s     /     %s   \n", article.getId(), article.getRegDate().split(" ")[1], article.getTitle(), article.getBody());
       } else {
-        System.out.printf(" %d / %s / %s / %s\n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
+        System.out.printf("   %d     /    %s          /    %s     /     %s   \n", article.getId(), article.getRegDate().split(" ")[0], article.getTitle(), article.getBody());
       }
 
-    }
-  }
-
-  //로그인 상태에서 게시글 조작 가능하게 함수 구현
-  private void memberArticle(){
-    if (loginedMember == null)   {
-      return;
     }
   }
 
@@ -124,6 +116,7 @@ public class ArticleController extends Controller { //Controller 를 상속함
     System.out.println("번호 : " + foundArticle.getId());
     System.out.println("작성날짜 : " + foundArticle.getRegDate());
     System.out.println("수정날짜 : " + foundArticle.getUpdateDate());
+    System.out.println("작성자 : " + foundArticle.getMemberId());
     System.out.println("제목 : " + foundArticle.getTitle());
     System.out.println("내용 : " + foundArticle.getBody());
   }
@@ -185,8 +178,8 @@ public class ArticleController extends Controller { //Controller 를 상속함
    **/
   public void makeTestData() {
     System.out.println("==게시글 테스트 데이터 생성==");
-    articles.add(new Article(1, "2025-12-07 12:12:12", "2025-12-07 12:12:12", "테스트title0267", "내용 1"));
-    articles.add(new Article(2, Util.getNowStr(), Util.getNowStr(), "test제목0401", "내용 2"));
-    articles.add(new Article(3, Util.getNowStr(), Util.getNowStr(), "test제목2356", "내용 3"));
+    articles.add(new Article(1, "2025-12-07 12:12:12", "2025-12-07 12:12:12", "제목 123", "내용 1", 1));
+    articles.add(new Article(2, Util.getNowStr(), Util.getNowStr(), "제목 23", "내용 2", 1));
+    articles.add(new Article(3, Util.getNowStr(), Util.getNowStr(), "제목 1234", "내용 3", 2));
   }
 }

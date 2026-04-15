@@ -3,6 +3,7 @@ package org.example.dto;
 public class Article extends Dto { //게시판 클래스를 만들고 Dto에 상속화
   private String title;  //제목 담을 변수 생성
   private String body;  //내용 담을 변수 생성
+  private String member;
 
   public Article(int id, String regDate, String updateDate, String title, String body) {
     this.id = id;  //생성자를 만들어 변수들에 값을 적용

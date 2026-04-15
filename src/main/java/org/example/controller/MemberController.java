@@ -3,9 +3,7 @@ package org.example.controller;
 import org.example.dto.Member;
 import org.example.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MemberController extends Controller { //컨트롤러 상속
 
@@ -13,7 +11,6 @@ public class MemberController extends Controller { //컨트롤러 상속
   private List<Member> members;
   private String cmd;
   private int lastMemberId = 3;
-  private Member loginedMember = null;
 
   public MemberController(Scanner sc) { //생성자 만듬
     this.sc = sc; //스캐너를 넘겨받으므로써 스캐너선언을 안해도됨
@@ -25,12 +22,24 @@ public class MemberController extends Controller { //컨트롤러 상속
 
     switch (actionMethodName) {  //ArticleController 랑 동일
       case "join":
+        if (isLogined()) {
+          System.out.println("이미 로그인 중");
+          return;
+        }
         doJoin();
         break;
       case "login":
+        if (isLogined()) {
+          System.out.println("이미 로그인 중");
+          return;
+        }
         dologin();
         break;
       case "logout":
+        if (!isLogined()) {
+          System.out.println("이미 로그아웃 중");
+          return;
+        }
         dologout();
         break;
       default:
@@ -75,16 +84,8 @@ public class MemberController extends Controller { //컨트롤러 상속
     lastMemberId++;
   }
 
-  private boolean isLogined() {   //중복로그인을 하지않기 위한 메서드
-    return loginedMember != null;  //loginedMember의 초기값은 null 이므로 null != null 은 false 이다
-  } //고로 isLogined 값은 기본적으로 false 이다
-
   private void dologin() {
 
-      if (isLogined()) { //기본이 false 이기 때문에 출력을 안한다. 다만 loginedMember값에 다른 값이 들어간다면 출력.
-        System.out.println("이미 로그인 중 입니다.");
-        return;
-      }
       System.out.println("== 로그인 시스템 ==");
       System.out.print("아이디를 입력해주세요 : ");
       String Lid = sc.nextLine().trim();  //Lid 변수에 사용자 입력값을 저장 (아이디)
@@ -111,11 +112,6 @@ public class MemberController extends Controller { //컨트롤러 상속
   }
 
   private void dologout() {
-    if (!isLogined()) {//기본값은 false이기 때문에 !false 는 true 출력
-      System.out.println("로그아웃 상태입니다. 로그인 해주세요.");
-      return;
-    } //다른값이 들어가있으면 true이기 때문에 !true는 false 출력안함
-
     loginedMember = null; //if문을 출력하지 않고넘어온다면 loginedMember의 값을 null로 초기화
     System.out.println("로그아웃 완료."); //출력
   }

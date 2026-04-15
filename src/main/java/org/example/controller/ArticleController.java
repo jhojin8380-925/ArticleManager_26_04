@@ -102,6 +102,13 @@ public class ArticleController extends Controller { //Controller 를 상속함
     }
   }
 
+  //로그인 상태에서 게시글 조작 가능하게 함수 구현
+  private void memberArticle(){
+    if (loginedMember == null)   {
+      return;
+    }
+  }
+
   // 게시글 상세보기 함수 구현
   private void showDetail() {
     System.out.println("==게시글 상세보기==");
@@ -178,8 +185,8 @@ public class ArticleController extends Controller { //Controller 를 상속함
    **/
   public void makeTestData() {
     System.out.println("==게시글 테스트 데이터 생성==");
-    articles.add(new Article(1, "2025-12-07 12:12:12", "2025-12-07 12:12:12", "제목 123", "내용 1"));
-    articles.add(new Article(2, Util.getNowStr(), Util.getNowStr(), "제목 23", "내용 2"));
-    articles.add(new Article(3, Util.getNowStr(), Util.getNowStr(), "제목 1234", "내용 3"));
+    articles.add(new Article(1, "2025-12-07 12:12:12", "2025-12-07 12:12:12", "테스트title0267", "내용 1"));
+    articles.add(new Article(2, Util.getNowStr(), Util.getNowStr(), "test제목0401", "내용 2"));
+    articles.add(new Article(3, Util.getNowStr(), Util.getNowStr(), "test제목2356", "내용 3"));
   }
 }

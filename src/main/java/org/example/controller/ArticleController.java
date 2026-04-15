@@ -55,7 +55,7 @@ public class ArticleController extends Controller {
     String regDate = Util.getNowStr();
     String updateDate = Util.getNowStr();
 
-    Article article = new Article(id, regDate, updateDate, title, body, loginedMember.getId());
+    Article article = new Article(id, regDate, updateDate, title, body, loginedMember.getId()); //여기서 loginedMember.getId() <- 이거는 멤버 아이디
     articles.add(article);
 
     System.out.println(id + "번 글이 작성되었습니다.");
@@ -133,6 +133,12 @@ public class ArticleController extends Controller {
       System.out.println("해당 게시글은 없습니다");
       return;
     }
+
+    if (loginedMember.getId() != foundArticle.getMemberId()) {
+      System.out.println("올바르지 않은 아이디입니다.");
+      return;
+    }
+
     articles.remove(foundArticle);
     System.out.println(id + "번 게시글이 삭제되었습니다");
   }
@@ -149,6 +155,13 @@ public class ArticleController extends Controller {
       System.out.println("해당 게시글은 없습니다");
       return;
     }
+
+    if (loginedMember.getId() != foundArticle.getMemberId()) {
+      System.out.println("올바르지 않은 아이디입니다.");
+      return;
+    }
+
+
     System.out.println("기존 title : " + foundArticle.getTitle());
     System.out.println("기존 body : " + foundArticle.getBody());
     System.out.print("새 제목 : ");
